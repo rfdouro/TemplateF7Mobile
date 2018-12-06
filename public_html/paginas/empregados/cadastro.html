@@ -1,0 +1,137 @@
+
+<div class="page" id="appCadEmpregado">
+ <form id="formCadUsuario" class="page-content">
+  <div class="toolbar">
+   <div class="toolbar-inner">
+    <div class="left">
+     <a v-on:click="voltaPaginaLista">
+      <i class="icon icon-back"></i>
+      <span class="ios-only">Back</span>
+     </a>
+    </div>
+    <div class="title sliding">{{titulo}}</div>
+    <div class="right">
+
+    </div>
+   </div>
+  </div>
+  <div class="block-title">Dados do empregado</div>
+  <div class="list no-hairlines-md">
+   <ul>
+    <li>
+     <div class="item-content item-input">
+      <div class="item-inner">
+       <div class="item-title item-label">Nome</div>
+       <div class="item-input-wrap">
+        <input type="text" v-model="empregado.nome" placeholder="Nome do empregado"/>
+       </div>
+      </div>
+     </div>
+    </li>
+    <li>
+     <div class="item-content item-input">
+      <div class="item-inner">
+       <div class="item-title item-label">Gênero</div>
+       <div class="item-input-wrap">
+        <select>
+         <option>Masculino</option>
+         <option>Feminino</option>
+         <option>Indefinido</option>
+        </select>
+       </div>
+      </div>
+     </div>
+    </li>
+    <li>
+     <div class="item-content item-input">
+      <div class="item-inner">
+       <div class="item-title item-label">Nascimento</div>
+       <div class="item-input-wrap">
+        <input id="nascimento" type="text"
+               v-model.lazy="empregado.nascimento" placeholder="Nascimento"
+               v-date-picker-f7="{app:appF7}">
+        <!--input type="text" id="nascimento" v-model.lazy="empregado.nascimento" placeholder="Nascimento"/-->
+       </div>
+      </div>
+     </div>
+    </li>
+   </ul>
+  </div>
+  <div class="block-title">Chefe de seção?</div>
+  <div class="list">
+   <ul>
+    <li>
+     <label class="item-radio item-content">
+      <input type="radio" name="radio" value="Sim" checked="checked"/>
+      <i class="icon icon-radio"></i>
+      <div class="item-inner">
+       <div class="item-title">Sim</div>
+      </div>
+     </label>
+    </li>
+    <li>
+     <label class="item-radio item-content">
+      <input type="radio" name="radio" value="Não"/>
+      <i class="icon icon-radio"></i>
+      <div class="item-inner">
+       <div class="item-title">Não</div>
+      </div>
+     </label>
+    </li>
+   </ul>
+  </div>
+  <p class="row">
+   <a
+    v-on:click="salvaDados"
+    class="col button button-big button-fill button-raised link ">Salvar</a>
+  </p>
+ </form>
+</div>
+
+<script>
+
+ var vEmp = new Vue({
+  el: '#appCadEmpregado',
+  data: {
+   titulo: 'Cadastro de Empregado',
+   hoje: moment(new Date()).format('DD/MM/YYYY'),
+   empregado: {}
+  },
+  methods: {
+   openAlert: function () {
+    var self = this.$app.dialog.alert('Hello world!');
+   },
+   salvaDados: function () {
+    //alert(this.empregado.nascimento);
+    db.add(this.empregado.nome, this.empregado.nascimento);
+    appF7.dialog.alert('Empregado cadastrado', function () {
+     appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'});
+    });
+   },
+   voltaPaginaLista: function () {
+    appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'});
+   }
+  },
+  mounted: function () {
+   var _this = this;
+   /*var calendar = appF7.calendar.create({
+    inputEl: '#nascimento',
+    on: {
+     opened: function () {
+      console.log('Calendar opened');
+     },
+     init: function () {
+      console.log('init');
+     },
+     monthYearChangeStart: function (c) {
+      console.log('sel');
+     },
+     close: function () {
+      //_this.empregado.nascimento = this.value;
+     }
+    }
+   });*/
+   //console.log(calendar);
+  }
+ });
+</script>

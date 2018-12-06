@@ -1,0 +1,54 @@
+
+<div class="page" id="appEmpregados">
+ <div class="page-content">
+  <!-- Toolbar-->
+  <div class="toolbar">
+   <div class="toolbar-inner">
+    <a href="#" class="link"></a>
+    <span id="tituloPagina">{{titulo}}</span>
+    <a href="#" class="link"></a>
+   </div>
+  </div>
+  <!-- Scrollable page content-->
+  <div class="block-title">{{titulo}}</div>
+  <div class="list no-hairlines-md">
+   <div class="list links-list">
+    <ul>     
+     <li v-for="emp in empregados"><a
+       v-on:click="abre(emp.id)"
+       >{{emp.nome}}&nbsp;{{emp.nascimento}}</a></li>
+    </ul>
+   </div>
+  </div>
+ </div>
+
+ <!-- Floating Action Button -->
+ <div class="fab fab-right-bottom">
+  <a v-on:click="abreCadastro">
+   <i class="icon material-icons md-only">add_box</i>
+  </a>
+ </div>
+
+</div>
+<script>
+ var vEmpregados = new Vue({
+  el: '#appEmpregados',
+  data: {
+   titulo: 'Lista de Empregados',
+   empregados: []
+  },
+  created: function () {
+   appF7.preloader.show();
+   this.empregados = db.empregados;
+   appF7.preloader.hide();
+  },
+  methods: {
+   abre: function (id) {
+    appF7.methods.navega({pagina: 'paginas/empregados/visualiza.html?id=' + id, div: 'divConteudo'});
+   },
+   abreCadastro: function () {
+    appF7.methods.navega({pagina: 'paginas/empregados/cadastro.html', div: 'divConteudo'});
+   }
+  }
+ });
+</script>

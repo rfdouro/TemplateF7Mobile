@@ -1,0 +1,167 @@
+
+<div class="page" id="appVisEmpregado">
+ <form id="formCadUsuario" class="page-content">
+  <div class="toolbar">
+   <div class="toolbar-inner">
+    <div class="left">
+     <a @click="voltaPaginaLista">
+      <i class="icon icon-back"></i>
+      <span class="ios-only">Back</span>
+     </a>
+    </div>
+    <div class="title sliding">{{titulo}}</div>
+    <div class="right">
+
+    </div>
+   </div>
+  </div>
+  <div class="block-title">Dados do empregado</div>
+  <div class="list no-hairlines-md">
+   <ul>
+    <li>
+     <div class="item-content item-input">
+      <div class="item-inner">
+       <div class="item-title item-label">Nome</div>
+       <div class="item-input-wrap">
+        <input type="text" name="nome" v-model="empregado.nome"/>
+       </div>
+      </div>
+     </div>
+    </li>
+    <li>
+     <div class="item-content item-input">
+      <div class="item-inner">
+       <div class="item-title item-label">Gênero</div>
+       <div class="item-input-wrap">
+        <select>
+         <option>Masculino</option>
+         <option>Feminino</option>
+         <option>Indefinido</option>
+        </select>
+       </div>
+      </div>
+     </div>
+    </li>
+    <li>
+     <div class="item-content item-input">
+      <div class="item-inner">
+       <div class="item-title item-label">Nascimento</div>
+       <div class="item-input-wrap">
+        <input type="text"
+               v-model.lazy="empregado.nascimento" placeholder="Nascimento"
+               v-date-picker-f7="{app:appF7}">
+       </div>
+      </div>
+     </div>
+    </li>
+   </ul>
+  </div>
+  <div class="block-title">Chefe de seção?</div>
+  <div class="list">
+   <ul>
+    <li>
+     <label class="item-radio item-content">
+      <input type="radio" name="radio" value="Sim" checked="checked"/>
+      <i class="icon icon-radio"></i>
+      <div class="item-inner">
+       <div class="item-title">Sim</div>
+      </div>
+     </label>
+    </li>
+    <li>
+     <label class="item-radio item-content">
+      <input type="radio" name="radio" value="Não"/>
+      <i class="icon icon-radio"></i>
+      <div class="item-inner">
+       <div class="item-title">Não</div>
+      </div>
+     </label>
+    </li>
+   </ul>
+  </div>
+  <p class="row">
+   <a
+    @click="excluir"
+    class="col button button-big button-fill button-raised link color-red ">Excluir</a>
+   <a
+    @click="atualizaDados"
+    class="col button button-big button-fill button-raised link ">Salvar</a>
+  </p>
+ </form>
+</div>
+
+<script>
+
+ var vEmp = new Vue({
+  el: '#appVisEmpregado',
+  data: {
+   titulo: 'Dados do Empregado',
+   hoje: moment(new Date()).format('DD/MM/YYYY'),
+   empregado: {nome: 'xxs', nascimento: ''}
+  },
+  methods: {
+   openAlert: function () {
+    var self = this.$app.dialog.alert('Hello world!');
+   },
+   salvaDados: function () {
+    db.add(this.empregado.nome, this.empregado.nascimento);
+    appF7.dialog.alert('Empregado cadastrado', function () {
+     appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'});
+    });
+   },
+   atualizaDados: function () {
+    db.update(this.empregado);
+    appF7.dialog.alert('Dados atualizados', function () {
+     appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'});
+    });
+   },
+   excluir: function () {
+    var _this = this;
+    appF7.methods.dialogConfirma('Deseja excluir?', function () {
+     db.remove(_this.empregado.id, function () {
+      appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'});
+     });
+    });
+    /*appF7.dialog.confirm('Deseja excluir?', function () {
+     db.remove(_this.empregado.id, function () {
+     appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'});
+     });
+     });*/
+   },
+   voltaPaginaLista: function () {
+    appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'});
+   },
+   carregaDados: function () {
+    var id = appF7.methods.urlParam('id');
+    var _this = this;
+    var obj = db.get(parseInt(id));
+    //this.empregado.nome = obj.nome;
+    this.empregado = obj;
+   }
+  },
+  created: function () {
+
+  },
+  mounted: function () {
+   this.carregaDados();
+   var calendar = appF7.calendar.create({
+    inputEl: '#nascimento',
+    on: {
+     opened: function () {
+      //console.log('Calendar opened');
+     },
+     init: function () {
+      //console.log('init');
+     },
+     monthYearChangeStart: function (c) {
+      //console.log('sel');
+     },
+     close: function () {
+      //_this.empregado.nascimento = this.value;
+     }
+    }
+   });
+   //console.log(calendar);
+  }
+ });
+</script>

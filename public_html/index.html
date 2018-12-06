@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <!--
+  Customize this policy to fit your own app's needs. For more guidance, see:
+      https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+  Some notes:
+      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+      * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+          * Enable inline JS: add 'unsafe-inline' to default-src
+  -->
+  <!--
+https://framework7.io
+Base:
+https://framework7io.github.io/framework7-template-single-view/
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Template</title>
+
+  <link href="js/libs/framework7/css/framework7.min.css" rel="stylesheet" type="text/css"/>
+  <link href="fonts/Material_Icons.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="css/app.css">
+
+  <!-- Cordova -->
+  <!--
+  <script src="cordova.js"></script>
+  -->
+  <!-- Framework7 library -->
+  <script src="js/libs/framework7/js/framework7.min.js" type="text/javascript"></script>
+  
+  <script src="js/libs/jquery/jquery.min.js" type="text/javascript"></script>
+  
+  <!-- Vue -->
+  <script src="js/libs/vue/vue.min.js" type="text/javascript"></script>
+  
+  <!-- utilidades -->
+  <script src="js/util/Util.js" type="text/javascript"></script>
+  
+  <!-- moment.js -->
+  <script src="js/libs/moment.js/moment.min.js" type="text/javascript"></script>
+  <script src="js/libs/moment.js/locale/pt-br.js" type="text/javascript"></script>
+  
+  <script src="js/vue/VueDiretivas.js" type="text/javascript"></script>
+  <script src="js/vue/VueFiltros.js" type="text/javascript"></script>
+  <script src="js/vue/VueComponentes.js" type="text/javascript"></script>
+
+  <!-- simulate a database -->
+  <script src="js/db.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div id="app">
+   <!-- Status bar overlay for fullscreen mode-->
+   <div class="statusbar"></div>
+   <!-- Left panel with cover effect-->
+   <div class="panel panel-left panel-cover theme-dark">
+    <div class="view">
+     <div class="page">
+      <a class="navbar panel-close">
+       <div class="navbar-inner">
+        <div class="title">Menu</div>
+       </div>
+      </a>
+      <div class="page-content">
+       <div class="list">
+        <ul>
+         <li><a onclick="appF7.methods.navega({pagina: 'paginas/inicio.html', div: 'divConteudo'})" class="item-content item-link panel-close">
+           <div class="item-inner">
+            <div class="item-title">Início</div>
+           </div></a>
+         </li>
+         <li class="accordion-item"><a href="#" class="item-content item-link">
+           <div class="item-inner">
+            <div class="item-title">Cadastros</div>
+           </div></a>
+          <div class="accordion-item-content">
+           <div class="block">
+            <div class="list links-list">
+             <ul>
+              <li><a class="panel-close" onclick="appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'})">Empregados</a></li>
+              <li><a href="#">Dependentes</a></li>
+             </ul>
+            </div>
+           </div>
+          </div>
+         </li>
+         <li class="accordion-item"><a href="#" class="item-content item-link">
+           <div class="item-inner">
+            <div class="item-title">Relatórios</div>
+           </div></a>
+          <div class="accordion-item-content">
+           <div class="block">
+            <div class="list links-list">
+             <ul>
+              <li><a href="#">Salários</a></li>
+              <li><a href="#">Demais</a></li>
+             </ul>
+            </div>
+           </div>
+          </div>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- Right panel with reveal effect-->
+   <div class="panel panel-right panel-reveal theme-dark">
+    <div class="view">
+     <div class="page">
+      <a class="navbar panel-close">
+       <div class="navbar-inner">
+        <div class="title">Configurações</div>
+       </div>
+      </a>
+      <div class="page-content">
+       <div class="block">Conteúdo do painel</div>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <!-- Your main view, should have "view-main" class -->
+   <div class="view ios-edges">
+    <!-- Page, data-name contains page name which can be used in callbacks -->
+    <div class="page" data-name="home">
+     <!-- Top Navbar -->
+     <div class="navbar">
+      <div class="navbar-inner">
+       <div class="left">
+        <a href="#" class="link icon-only panel-open" data-panel="left">
+         <i class="icon f7-icons ios-only">menu</i>
+         <i class="icon material-icons md-only">menu</i>
+        </a>
+       </div>
+       <div class="title sliding">Template F7 + Vue</div>
+       <div class="right">
+        <a href="#" class="link icon-only panel-open" data-panel="right">
+         <i class="icon f7-icons ios-only">menu</i>
+         <i class="icon material-icons md-only">build</i>
+        </a>
+       </div>
+      </div>
+     </div>
+     <div id="divConteudo">
+      dsdsd
+     </div>
+     
+    </div>
+   </div>
+
+  </div>
+
+  <!-- Your custom app scripts -->
+  <script src="js/appF7.js"></script>
+  <script>
+   appF7.methods.navega({pagina: 'paginas/inicio.html', div: 'divConteudo'});
+  </script>
+ </body>
+</html>
