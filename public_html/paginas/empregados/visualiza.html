@@ -33,10 +33,10 @@
       <div class="item-inner">
        <div class="item-title item-label">Gênero</div>
        <div class="item-input-wrap">
-        <select>
-         <option>Masculino</option>
-         <option>Feminino</option>
-         <option>Indefinido</option>
+        <select v-model='empregado.genero'>
+         <option value='1'>Masculino</option>
+         <option value='2'>Feminino</option>
+         <option value='3'>Indefinido</option>
         </select>
        </div>
       </div>
@@ -61,7 +61,7 @@
    <ul>
     <li>
      <label class="item-radio item-content">
-      <input type="radio" name="radio" value="Sim" checked="checked"/>
+      <input type="radio" name="radio" v-model='empregado.chefe' value="s" checked="checked"/>
       <i class="icon icon-radio"></i>
       <div class="item-inner">
        <div class="item-title">Sim</div>
@@ -70,7 +70,7 @@
     </li>
     <li>
      <label class="item-radio item-content">
-      <input type="radio" name="radio" value="Não"/>
+      <input type="radio" name="radio" v-model='empregado.chefe' value="n"/>
       <i class="icon icon-radio"></i>
       <div class="item-inner">
        <div class="item-title">Não</div>

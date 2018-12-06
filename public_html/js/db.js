@@ -1,15 +1,17 @@
 function DB() {
  this.empregados = [
-  {id: 1, nome: 'Joao', nascimento: '04/05/1978'},
-  {id: 2, nome: 'Maria', nascimento: '04/05/1978'},
-  {id: 3, nome: 'Joana', nascimento: '04/05/1978'}
+  {id: 1, nome: 'Joao', nascimento: '04/05/1978', genero: 1, chefe: 'n'},
+  {id: 2, nome: 'Maria', nascimento: '04/05/1978', genero: 1, chefe: 'n'},
+  {id: 3, nome: 'Joana', nascimento: '04/05/1978', genero: 2, chefe: 'n'}
  ];
- this.add = function (n, nasc) {
+ this.add = function (n, nasc, g, c) {
   var nId = this.empregados.length + 1;
   this.empregados.push({
    id: nId,
    nome: n,
-   nascimento: nasc
+   nascimento: nasc,
+   genero: g, 
+   chefe: c
   });
  };
  this.get = function (_id) {

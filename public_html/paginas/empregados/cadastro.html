@@ -33,10 +33,10 @@
       <div class="item-inner">
        <div class="item-title item-label">Gênero</div>
        <div class="item-input-wrap">
-        <select>
-         <option>Masculino</option>
-         <option>Feminino</option>
-         <option>Indefinido</option>
+        <select v-model='empregado.genero'>
+         <option value='1'>Masculino</option>
+         <option value='2'>Feminino</option>
+         <option value='3'>Indefinido</option>
         </select>
        </div>
       </div>
@@ -62,7 +62,7 @@
    <ul>
     <li>
      <label class="item-radio item-content">
-      <input type="radio" name="radio" value="Sim" checked="checked"/>
+      <input type="radio" name="radio" v-model='empregado.chefe' value="s" checked="checked"/>
       <i class="icon icon-radio"></i>
       <div class="item-inner">
        <div class="item-title">Sim</div>
@@ -71,7 +71,7 @@
     </li>
     <li>
      <label class="item-radio item-content">
-      <input type="radio" name="radio" value="Não"/>
+      <input type="radio" name="radio" v-model='empregado.chefe' value="n"/>
       <i class="icon icon-radio"></i>
       <div class="item-inner">
        <div class="item-title">Não</div>
@@ -102,8 +102,8 @@
     var self = this.$app.dialog.alert('Hello world!');
    },
    salvaDados: function () {
-    //alert(this.empregado.nascimento);
-    db.add(this.empregado.nome, this.empregado.nascimento);
+    //alert(this.empregado.chefe);
+    db.add(this.empregado.nome, this.empregado.nascimento, this.empregado.genero, this.empregado.chefe);
     appF7.dialog.alert('Empregado cadastrado', function () {
      appF7.methods.navega({pagina: 'paginas/empregados/lista.html', div: 'divConteudo'});
     });
@@ -113,25 +113,7 @@
    }
   },
   mounted: function () {
-   var _this = this;
-   /*var calendar = appF7.calendar.create({
-    inputEl: '#nascimento',
-    on: {
-     opened: function () {
-      console.log('Calendar opened');
-     },
-     init: function () {
-      console.log('init');
-     },
-     monthYearChangeStart: function (c) {
-      console.log('sel');
-     },
-     close: function () {
-      //_this.empregado.nascimento = this.value;
-     }
-    }
-   });*/
-   //console.log(calendar);
+   
   }
  });
 </script>
